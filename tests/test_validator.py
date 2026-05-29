@@ -4,9 +4,9 @@ import pytest
 from requests import Response
 
 from src.yatl.validator import (
+    coerce_to_actual_type,
     validate_json_body,
     validate_xml_body,
-    coerce_to_actual_type,
 )
 
 

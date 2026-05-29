@@ -1,5 +1,5 @@
 from .base import ResponseValidator
-from .json_validator import validate_json_body, coerce_to_actual_type
+from .json_validator import coerce_to_actual_type, validate_json_body
 from .text_validator import validate_text_body
 from .xml_validator import validate_xml_body
 
