@@ -1,31 +1,7 @@
 from dataclasses import dataclass
 from typing import Any
 
-from yatl.domains.http import ExpectSpec, ExtractSpec, HttpRequest
-
-
-@dataclass
-class TestStep:
-    """
-    Step specification.
-
-    Attributes:
-        name: The name of the step.
-        description: The description of the step.
-        request: The request specification.
-        expect: The expectation specification.
-        extract: The extraction specification.
-        parametrize: The parametrization specification.
-        skip: Whether the step should be skipped.
-    """
-
-    name: str | None
-    description: str | None
-    request: HttpRequest | None
-    expect: ExpectSpec | None
-    extract: ExtractSpec | None
-    parametrize: list[dict] | None
-    skip: bool
+from yatl.domains.http import HttpTestStep
 
 
 @dataclass
@@ -44,7 +20,7 @@ class TestSpecification:
     name: str | None
     base_url: str
     description: str | None
-    steps: list[TestStep]
+    steps: list[HttpTestStep]
     skip: bool
 
 
