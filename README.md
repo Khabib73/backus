@@ -6,6 +6,7 @@
 [![GitHub contributors](https://img.shields.io/github/contributors/khabib73/YATL.svg)](https://github.com/khabib73/YATL/graphs/contributors/)
  ![Downloads](https://static.pepy.tech/badge/yatl-testing)
  [![test](https://github.com/khabib73/YATL/actions/workflows/ci.yaml/badge.svg)](https://github.com/khabib73/YATL/actions/workflows/ci.yaml)
+ [![wemake-python-styleguide](https://img.shields.io/badge/style-wemake-000000.svg)](https://github.com/wemake-services/wemake-python-styleguide)
  
 **YATL** is a declarative, YAML‑based testing language for API testing. If you know HTTP and YAML, you know YATL.
 
