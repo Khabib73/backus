@@ -49,6 +49,16 @@ def test_search_files():
     assert len(files) == 2
 
 
+@pytest.mark.parametrize("content", ["", "  \n\t", "# comment\n  # another comment\n"])
+def test_search_files_ignores_empty_yaml_files(tmp_path, content):
+    "Test that empty YAML files are excluded from test discovery."
+    empty_test = tmp_path / "empty.yatl.yaml"
+    empty_test.write_text(content, encoding="utf-8")
+
+    assert search_files(str(tmp_path)) == []
+    assert search_files(str(empty_test)) == []
+
+
 def test_search_files_with_invalid_path():
     "Test that search_files raises a clear error with invalid path."
     with pytest.raises(

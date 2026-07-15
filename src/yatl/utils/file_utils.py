@@ -51,6 +51,15 @@ def load_test_yaml(file_path: str) -> dict[str, str | int | list[Any]] | bool:
         raise InvalidYamlError(f"Encoding error in {file_path}: {e}")
 
 
+def _is_effectively_empty(file_path: str) -> bool:
+    """Return whether a YAML file contains only whitespace or comments."""
+    try:
+        with open(file_path, encoding="utf-8") as f:
+            return all(not line.strip() or line.lstrip().startswith("#") for line in f)
+    except UnicodeDecodeError:
+        return False
+
+
 def search_files(base_path: str) -> list[str]:
     """Searches for test files with a .yatl.yaml/.yatl.yml suffix.
 
@@ -67,7 +76,9 @@ def search_files(base_path: str) -> list[str]:
         DirectoryNotFoundError: If base_path is neither a file nor a directory.
     """
     if os.path.isfile(base_path):
-        if base_path.endswith(".yatl.yaml") or base_path.endswith(".yatl.yml"):
+        if (
+            base_path.endswith(".yatl.yaml") or base_path.endswith(".yatl.yml")
+        ) and not _is_effectively_empty(base_path):
             return [base_path]
         return []
 
@@ -79,8 +90,10 @@ def search_files(base_path: str) -> list[str]:
     def _search(current_path: str):
         for item in os.listdir(current_path):
             full_path = os.path.join(current_path, item)
-            if os.path.isfile(full_path) and (
-                item.endswith(".yatl.yaml") or item.endswith(".yatl.yml")
+            if (
+                os.path.isfile(full_path)
+                and (item.endswith(".yatl.yaml") or item.endswith(".yatl.yml"))
+                and not _is_effectively_empty(full_path)
             ):
                 files.append(full_path)
             elif os.path.isdir(full_path):
